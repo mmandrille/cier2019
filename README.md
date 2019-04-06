@@ -1,6 +1,6 @@
-# coindear2019
+# cier2019
 
-Web de CONVENCIÓN INTERNACIONAL DE ARCHIVISTAS
+Web de CONVENCIÓN INTERNACIONAL DE ENERGIA RENOVABLE
 Django, sendgrid, etc
 
 Para poder probar este proyecto solo deben Instalar:
