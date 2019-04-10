@@ -25,7 +25,7 @@ def inscripcion(request):
         form = InscriptoForm(request.POST)
         if form.is_valid():
             inscripto = form.save()
-            mail_subject = 'Confirma tu Inscripcion a Coindear 2019.'
+            mail_subject = 'Confirma tu Inscripcion a Cier2019.'
             message = render_to_string('acc_active_email.html', {
                 'inscripto': inscripto,
                 'token':account_activation_token.make_token(inscripto),
