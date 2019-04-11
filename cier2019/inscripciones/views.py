@@ -24,18 +24,24 @@ def inscripcion(request):
     if request.method == 'POST':
         form = InscriptoForm(request.POST)
         if form.is_valid():
-            inscripto = form.save()
-            mail_subject = 'Confirma tu Inscripcion a Cier2019.'
-            message = render_to_string('acc_active_email.html', {
-                'inscripto': inscripto,
-                'token':account_activation_token.make_token(inscripto),
-            })
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(
-                        mail_subject, message, to=[to_email]
-            )
-            email.send()
-            return render(request, 'resultado.html', {'texto': 'Por Favor Confirme la creacion de su cuenta en el correo que recibio', })
+            to_email = form.cleaned_data.get('email')#Obtenemos el correo
+            try: inscripto = Inscriptos.objects.get(email=to_email) #Chequeamos si no esta inscripto    
+            except Inscriptos.DoesNotExist: 
+                inscripto = form.save()
+            
+            if not inscripto.activo:
+                mail_subject = 'Confirma tu Inscripcion a Cier2019.'
+                message = render_to_string('acc_active_email.html', {
+                    'inscripto': inscripto,
+                    'token':account_activation_token.make_token(inscripto),
+                })
+                email = EmailMessage(
+                            mail_subject, message, to=[to_email]
+                )
+                email.send()
+                return render(request, 'resultado.html', {'texto': 'Por Favor Confirme la creacion de su cuenta en el correo que recibio', })
+            else:
+                return render(request, 'resultado.html', {'texto': 'El mail informado ya fue validado en otra inscripcion', })
     else:
         form = InscriptoForm()
     return render(request, 'inscripcion.html', {'form': form, })
