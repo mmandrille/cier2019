@@ -8,4 +8,4 @@ class InscriptoForm(ModelForm):
     class Meta:
         model = Inscriptos
         fields = ['nombres', 'apellido', 'tipo_doc', 'num_doc', 
-                    'telefono', 'email',]
+                    'institucion', 'telefono', 'email',]
