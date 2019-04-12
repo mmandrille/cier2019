@@ -36,7 +36,7 @@ class Inscriptos(models.Model):
     institucion = models.CharField('Institucion', max_length=100, blank=True, null=True)
     telefono = models.CharField('Telefono', max_length=20)
     email = models.EmailField('Correo Electronico Personal')
-    activo = models.BooleanField(default=False)
+    activo = models.BooleanField('Mail Validado', default=False)
     pagado = models.BooleanField(default=False)
     def __str__(self):
         return(self.nombres + ' ' + self.apellido)
