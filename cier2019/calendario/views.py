@@ -8,4 +8,6 @@ from .models import Evento
 def calendario(request):
     eventos = Evento.objects.filter(fecha_inicio__date=date.today()).order_by('fecha_inicio')
     importantes = Evento.objects.filter(importante=True, fecha_inicio__date__gt=date.today()).order_by('fecha_inicio')
+    if (len(eventos) + len(importantes)) == 0:
+        importantes = Evento.objects.all().order_by('fecha_inicio')
     return render(request, 'calendario.html', { 'eventos': eventos, 'importantes': importantes, 'hoy' : datetime.now().strftime('%d/%m/%Y')})
